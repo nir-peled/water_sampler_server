@@ -21,4 +21,8 @@ html
 					h4 Welcome, Guest!
 					a(href="login") Login
 
+		- if (error_message)
+			div(class="container-fluid d-flex fixed-top")
+				p(class="error-message")= error_message
+
 		block contents

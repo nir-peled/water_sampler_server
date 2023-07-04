@@ -55,7 +55,7 @@ class Listener {
 		}); // default page
 
 		this.#app.get("/signup", (request, response) => {
-			console.log("signup page");
+			console.log("signup page"); // debug
 			response.render("signup");
 		});
 
@@ -66,14 +66,13 @@ class Listener {
 			this.auth().register(username, password, role)
 			.then((user) => {
 				// response.status(200).send(`Successful signup: ${user.username}`);
-				response.redirect("/")
+				response.redirect("/");
 			}) // then
 			.catch((err) => {
 				console.log(err); // debug
-				response.status(400).send({
-					message: "Could not register user", 
-					error: err.message
-				}); // send
+				response.status(400).render("signup", {
+				error_message: "Could not register user"
+				}); // render
 			}); // catch
 		}); // signup
 
@@ -85,7 +84,6 @@ class Listener {
 				response.redirect("/");
 			}
 			else
-				// response.send("login"); // temporary
 				response.render("login");
 		}); // get login
 
@@ -107,9 +105,8 @@ class Listener {
 			}) // then
 			.catch((err) => {
 				console.log(err); // debug
-				response.status(400).send({
-					message: "Could not login user", 
-					error: err.message
+				response.status(400).render("/", {
+					error_message: "Could not login user"
 				});
 			}); // catch
 		}); // post login
@@ -126,9 +123,8 @@ class Listener {
 				response.render("user_list", {users});
 			})
 			.catch((err) => {
-				response.status(500).send({
-					message: "Could Not Read Users", 
-					error: err.message
+				response.status(500).render("/", {
+					error_message: "Could Not Read Users"
 				});
 			}); // catch
 		}); // get users
@@ -156,9 +152,8 @@ class Listener {
 			})
 			.catch((err) => {
 				console.log(err); // debug
-				response.status(400).send({
-					message: "Could not update user", 
-					error: err.message
+				response.status(400).render("/", {
+					error_message: "Could not update user"
 				});
 			}); // catch
 		}); // post user/update
@@ -176,12 +171,11 @@ class Listener {
 			})
 			.catch((err) => {
 				console.log(err); // debug
-				response.status(400).send({
-					message: "Could not delete user", 
-					error: err.message
+				response.status(400).render("/", {
+					error_message: "Could not delete user"
 				});
 			});
-		}); // delete user/delete
+		}); // post user/delete
 	} // end app_setup
 
 	start() {

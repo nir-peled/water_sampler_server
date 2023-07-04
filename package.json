@@ -1,7 +1,7 @@
 {
-  "name": "reddit_portal",
+  "name": "water_sampler_server",
   "version": "1.0.0",
-  "description": "Final project in network developing class 2023a",
+  "description": "Water Sampler Server",
   "main": "controllers/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,16 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nir-peled/reddit_portal.git"
+    "url": "git+https://github.com/nir-peled/water_sampler_server.git"
   },
   "author": "Nir Peled",
-  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nir-peled/reddit_portal/issues"
+    "url": "https://github.com/nir-peled/water_sampler_server/issues"
   },
-  "homepage": "https://github.com/nir-peled/reddit_portal#readme",
+  "homepage": "https://github.com/nir-peled/water_sampler_server#readme",
   "dependencies": {
-    "bcrypt": "^5.1.0",
+    "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.18.2",
@@ -26,5 +25,6 @@
     "mongodb": "^4.13.0",
     "mongoose": "^6.9.0",
     "pug": "^3.0.2"
-  }
+  },
+  "license": "ISC"
 }

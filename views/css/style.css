@@ -2,3 +2,8 @@
 body { 
     padding-top: 65px; 
 }
+
+.error-message {
+    color: red;
+    text-align: center;
+}
