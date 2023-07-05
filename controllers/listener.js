@@ -47,12 +47,16 @@ class Listener {
 			}
 			next();
 		}); // use 
-		
+
 		this.#app.get("/", (request, response) => {
 			console.log("main page"); // debug
 			response.render("index");
 		}); // default page
 
+		this.#setup_user_crud();
+	} // end setup_app
+
+	#setup_user_crud() {
 		this.#app.get("/signup", (request, response) => {
 			console.log("signup page"); // debug
 			response.render("signup");
@@ -69,6 +73,7 @@ class Listener {
 			}) // then
 			.catch((err) => {
 				console.log(err); // debug
+				response.locals.error_message = "Could not register user";
 				response.status(400).render("signup", {
 				error_message: "Could not register user"
 				}); // render
@@ -122,6 +127,7 @@ class Listener {
 				response.render("user_list", {users});
 			})
 			.catch((err) => {
+				console.log(err); // debug
 				response.status(500).render("index", {
 					error_message: "Could Not Read Users"
 				});
@@ -175,7 +181,7 @@ class Listener {
 				});
 			});
 		}); // post user/delete
-	} // end app_setup
+	} // end setup_user_crud
 
 	start() {
 		this.#app.listen(this.#port, () => {
