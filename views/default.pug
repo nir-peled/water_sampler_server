@@ -12,6 +12,7 @@ html
 	body
 		nav(class="navbar fixed-top bg-light")
 			div(class="container-fluid d-flex justify-content-around")
+				a(href="/" class="ref-button") Home
 				- if (user_data && user_data.username)
 					h4= "Welcome, " + user_data.username + "!"
 					form(action="logout" method="post")
@@ -22,7 +23,7 @@ html
 					a(href="login") Login
 
 		- if (error_message)
-			div(class="container-fluid d-flex fixed-top")
+			div(class="container-fluid d-flex align-items-center justify-content-center")
 				p(class="error-message")= error_message
 
 		block contents

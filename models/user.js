@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 const mongoose = require('mongoose');
 

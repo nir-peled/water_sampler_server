@@ -1,5 +1,8 @@
-'user strict';
+'use strict';
 
 module.exports = {
-	User: require('./user')
+	User: require('./user'), 
+	Sensor: require('./sensor'), 
+	Test: require('./test'), 
+	Picture: require('./picture')
 }

@@ -21,7 +21,6 @@ class Listener {
 	}
 
 	#setup_app() {
-		// later
 		this.#app.set("view engine", "pug");
 		this.#app.set("views", path.join(__dirname, "../views"));
 
@@ -105,7 +104,7 @@ class Listener {
 			}) // then
 			.catch((err) => {
 				console.log(err); // debug
-				response.status(400).render("/", {
+				response.status(400).render("index", {
 					error_message: "Could not login user"
 				});
 			}); // catch
@@ -123,7 +122,7 @@ class Listener {
 				response.render("user_list", {users});
 			})
 			.catch((err) => {
-				response.status(500).render("/", {
+				response.status(500).render("index", {
 					error_message: "Could Not Read Users"
 				});
 			}); // catch
@@ -152,7 +151,7 @@ class Listener {
 			})
 			.catch((err) => {
 				console.log(err); // debug
-				response.status(400).render("/", {
+				response.status(400).render("index", {
 					error_message: "Could not update user"
 				});
 			}); // catch
@@ -171,7 +170,7 @@ class Listener {
 			})
 			.catch((err) => {
 				console.log(err); // debug
-				response.status(400).render("/", {
+				response.status(400).render("index", {
 					error_message: "Could not delete user"
 				});
 			});
