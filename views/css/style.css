@@ -1,42 +1,60 @@
 
 body { 
-    padding-top: 100px; 
+	padding-top: 100px; 
+	padding-left: 75px;
 }
 
 .error-message {
-    color: red;
-    text-align: center;
+	color: red;
+	text-align: center;
+}
+
+.button-list {
+	list-style: none;
+	float: left;
+	text-align: left;
 }
 
 .ref-button {
-    width: auto;
-    font-size: 100%;
+	width: auto;
+	font-size: 100%;
 /*  line-height: 1.286;*/
 /*  height: 1.286em;*/
-    padding: .25em .75em;
-    white-space: nowrap;
-    overflow: visible;
-    position: relative;
-    text-decoration: black;
-    border: 1px solid #bbb;
-    border-bottom: 1px solid #aaa;
-    border-radius: .25em;
-    box-shadow: none;
-    background-image: linear-gradient(#fff 2%,#ddd 95%,#bbb 100%);
-    color: black;
-    margin: .50em .50em;
+	padding: .25em .75em;
+	white-space: nowrap;
+	overflow: visible;
+	position: relative;
+	text-decoration: black;
+	border: 1px solid #bbb;
+	border-bottom: 1px solid #aaa;
+	border-radius: .25em;
+	box-shadow: none;
+	background-image: linear-gradient(#fff 2%,#ddd 95%,#bbb 100%);
+	color: black;
+	margin: .50em .50em;
 }
 
 .ref-button:hover {
-    color: #111;
-    background: #ccc;
-    border-color: #fff;
-    box-shadow: inset 1px 1px 3px #333;
+	color: #900;
+	border-top: 1px solid #999;
+	border-left: 1px solid #999;
+	box-shadow: inset 2px 2px 2px #bbb;
 }
 
 .ref-button:active {
-    color: #111;
-    background: #ccc;
-    border-color: #fff;
-    box-shadow: inset 1px 1px 3px #333;
+	color: #111;
+	background: #ccc;
+	border-color: #fff;
+	box-shadow: inset 1px 1px 3px #333;
+}
+
+.sensor_view {
+	width: 25%;
+	border: 1px solid black;
+	padding-bottom: .75em;
+}
+
+.sensor_details_table {
+	border-spacing: 20px 0;
+	border-collapse: separate;
 }

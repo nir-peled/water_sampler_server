@@ -1,0 +1,143 @@
+{
+  "hardware": {
+    "input_selectors": {"A":0},
+    "output_selectors": {"high":9, "low" :25},
+    "operands": {
+      "main_intake":23,
+      "rinse_intake":17,
+      "rinse_exhaust":7,
+      "piston_up" : 3,
+      "piston_down": 2,
+      "net_roller":19,
+      "sampler" : 0,
+      "camera" : 0
+    },
+    "interrupts": {
+      "pressure": {
+        "port" : 22, 
+        "mode": "single",
+        "seek": "rising",
+        "debounce": 10
+      }
+    }
+  },
+  "plans": [
+    {
+      "name": "stop",
+      "comments": "Reset at any step",
+      "steps": [
+        {
+          "name": "reset",
+          "interval": 0,
+          "actions": {
+            "A": false,
+            "high": false,
+            "low": false,
+            "main_intake": false,
+            "rinse_intake": false,
+            "rinse_exhaust": false,
+            "net_roller": false,
+            "piston_down": true
+          }
+        },
+        {
+          "name": "piston_stop",
+          "interval": 6.0,
+          "actions": {
+            "piston_down": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "regular",
+      "comments": "shalom rav shuvech tzipora nechmedet",
+      "steps": [
+        {
+          "name": "reset",
+          "interval": 0,
+          "actions": {
+            "input_selector": false,
+            "main_intake": false,
+            "output_selector": false
+          }
+        },
+        {
+          "name": "accumulate",
+          "interval": 5,
+          "actions": {
+            "input_selector": true,
+            "main_intake": true,
+            "output_selector": true
+          }
+        },
+        {
+          "name": "clogged",
+          "interrupt": "pressure",
+          "interval": 300,
+          "actions": {
+            "input_selector": false,
+            "main_intake": false,
+            "output_selector": false
+          }
+        },
+        {
+          "name": "rinse",
+          "interval": 10,
+          "actions": {
+            "rinse_intake": true,
+            "rinse_exhaust": true
+          }
+        },
+        {
+          "name": "end_rinse",
+          "interval": 10,
+          "actions": {
+            "rinse_intake": false
+          }
+        },
+        {
+          "name": "piston_up",
+          "interval": 5.0,
+          "actions": {
+            "rinse_exhaust": false,
+            "piston_up": true
+          }
+        }, 
+        {
+          "name": "roller",
+          "interval" : 6.0,
+          "actions": {
+            "piston_up": false,
+            "net_roller": true
+          }
+        },
+        {
+          "name": "piston_down",
+          "interval": 10.0,
+          "actions": {
+            "piston_down": true,
+            "net_roller": false
+          }
+        },
+        {
+          "name": "piston_stop",
+          "interval": 6.0,
+          "actions": {
+            "piston_down": false
+          }
+        },
+        {
+          "name": "idle",
+          "interval": 10,
+          "actions": {
+            "input_selector": false,
+            "main_intake": false,
+            "output_selector": false
+
+          }
+        }
+      ]
+    }
+  ]
+}

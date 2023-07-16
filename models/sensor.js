@@ -15,7 +15,13 @@ const SensorSchema = new mongoose.Schema({
 	status: {
 		type: String, 
 		required: true
+	}, 
+	config: {
+		type: mongoose.ObjectId, 
+		ref: "SensorConfig"
 	}
 });
 
 const Sensor = mongoose.model("Sensor", SensorSchema);
+
+module.exports = Sensor;

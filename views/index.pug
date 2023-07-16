@@ -3,7 +3,12 @@ extends default
 block contents
 	div(class="container-fluid" id="main-page-contents")
 		h2 Main Page
-		a(href="signup" class="ref-button" role="button") Sign Up
-		br
-		br
-		a(href="users" class="ref-button" role="button") Users
+		table(class="button-list")
+			tr
+				td
+					a(href="/signup" class="ref-button" role="button") Sign Up
+				td
+					a(href="/users" class="ref-button" role="button") Users
+				- if (user_data)
+					td
+						a(href="/sensors/all" class="ref-button" role="button") Sensors

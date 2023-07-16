@@ -1,0 +1,23 @@
+
+mixin view_sensor(sensor)
+	div(class="sensor_view")
+		table(class="sensor_details_table")
+			tr
+				th
+					p Sensor Name
+				th
+					p Location
+				th
+					p Status
+			tr
+				td
+					p= sensor.name
+				td
+					p= sensor.location
+				td
+					p= sensor.status		
+		br
+		- if (user_data)
+			a(hreaf=`/sensors/${sensor.name}/tests` class="ref-button" role="button") Tests
+		- if (user_data && user_data.role == "admin")
+			a(hreaf=`/sensors/${sensor.name}/config` class="ref-button" role="button") Configuration

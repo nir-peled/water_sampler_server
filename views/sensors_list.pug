@@ -1,0 +1,11 @@
+extends default
+include view_sensor
+
+block contents
+	- if (sensors.length == 0)
+		p There Are No Sensors!
+	div(class="d-flex align-items-left flex-column")
+		each sensor in sensors
+			br
+			+view_sensor(sensor)
+			br
