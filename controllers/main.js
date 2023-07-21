@@ -13,9 +13,9 @@ class Server {
 	#sensor_manager;
 	constructor(config) {
 		this.#database = new Database(config.database_url);
+		this.#sensor_manager = new SensorManager(this);
 		this.#listener = new Listener(this, config.uri, config.port);
 		this.#authenticator = null;
-		this.#sensor_manager = new SensorManager(this);
 	}
 
 	async start() {

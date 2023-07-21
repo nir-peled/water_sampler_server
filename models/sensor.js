@@ -1,6 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const ConfigSchema = require('./sensor_config');
 
 const SensorSchema = new mongoose.Schema({
 	name: {
@@ -16,10 +17,7 @@ const SensorSchema = new mongoose.Schema({
 		type: String, 
 		required: true
 	}, 
-	config: {
-		type: mongoose.ObjectId, 
-		ref: "SensorConfig"
-	}
+	config: ConfigSchema
 });
 
 const Sensor = mongoose.model("Sensor", SensorSchema);

@@ -12,6 +12,6 @@ block contents
 					td= user.username
 					td= user.role
 					td
-						a(href="/user/update/" + user.username) Update
+						a(href="/user/update/" + user.username class="ref-button" role="button") Update
 						form(action="/user/delete/" + user.username method="post")
-							input(type="submit" value="Delete")
+							input(type="submit" value="Delete" class="ref-button" role="button")

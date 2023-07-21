@@ -43,6 +43,7 @@ class Listener {
 		app.use(express.json());
 
 		// token authentication middleware
+		// also sets error_message to renderer when needed
 		app.use(async (request, response, next) => {
 			console.log(`request to ${request.originalUrl}`); // debug
 			let token = request.cookies.user_token;
@@ -243,25 +244,44 @@ class Listener {
 			})
 		}); // get sensors single
 		*/
-		/*
+
 		app.get("/sensors/:sensor_name/config", (request, response) => {
 			if (!request.user_data || request.user_data.role != "admin")
 				return this.#send_unautorized(response, request.user_data, "/sensors");
 
 			let sensor_name = request.params.sensor_name;
-			this.#database.get_sensor_config(sensor_name)
-			.then((sensor_config) =>
-			 response.render("sensor_config_view", {sensor_config})
+			this.#database.get_sensor(sensor_name, {config:1})
+			.then((sensor) =>
+				response.render("sensor_config_view", {sensor_name})
+			).catch((err) => {
+				console.log(err) // debug
+				this.#redirect(response, "/sensors/all", {
+					error_message: `Unable to view sensor ${sensor_name}`
+				});
+			}); // catch
+		}); // get sensor config
+		
+		app.get("/sensors/:sensor_name/config.json", (request, response) => {
+			if (!request.user_data || request.user_data.role != "admin")
+				return this.#send_unautorized(response, request.user_data, "/sensors");
+
+			let sensor_name = request.params.sensor_name;
+			this.#database.get_sensor(sensor_name)
+			.then((sensor) => {
+				console.log("config:"); // deubg
+				console.log(JSON.stringify(sensor.config)); // debug
+			 	response.json(sensor.config);
+			 	// return this.#redirect(response, "/sensors/all"); // debug
+			}
 			).catch((err) => {
 				console.log(err); // debug
-				response.status(SERVER_ERR);
-				this.#redirect(response, "/sensors/all", {
+				response.status(SERVER_ERR).json({
 					error_message: `Unable to view sensor config of ${sensor_name}`
 				});
 			}); // catch
 		}); // get sensor config
-		*/
-		app.post("/sensors/:sensor_name/config", (request, response) => {
+
+		app.post("/sensors/:sensor_name/config.json", (request, response) => {
 			if (request.user_data.role != "admin")
 				return this.#send_unautorized(response, request.user_data, "/sensors");
 
@@ -270,12 +290,12 @@ class Listener {
 
 			this.#sensor_manager.config_sensor(sensor_name, config_data)
 			.then(() =>
-				this.#database.set_sensor_config(sensor_name, config)
+				this.#database.set_sensor_config(sensor_name, config_data)
 			).then(() => {
-				response.status(OK);
-				this.#redirect(response, `/sensors/${sensor_name}`, {
-					error_message: `Sensor ${sensor_name} configured successfully`
-				});
+				response.status(OK).send(URL.format({
+					pathname: "/sensors/all", 
+					query: {error_message: `Sensor ${sensor_name} configured successfully`}
+				}));
 			})
 			.catch((err) => {
 				console.log(err); // debug

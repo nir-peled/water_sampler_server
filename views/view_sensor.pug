@@ -18,6 +18,6 @@ mixin view_sensor(sensor)
 					p= sensor.status		
 		br
 		- if (user_data)
-			a(hreaf=`/sensors/${sensor.name}/tests` class="ref-button" role="button") Tests
+			a(href=`/sensors/${sensor.name}/tests` class="ref-button" role="button") Tests
 		- if (user_data && user_data.role == "admin")
-			a(hreaf=`/sensors/${sensor.name}/config` class="ref-button" role="button") Configuration
+			a(href=`/sensors/${sensor.name}/config` class="ref-button" role="button") Configuration

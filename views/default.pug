@@ -23,8 +23,7 @@ html
 					h4 Welcome, Guest!
 					a(href="login" class="ref-button" role="button") Login
 
-		- if (error_message)
 			div(class="container-fluid d-flex align-items-center justify-content-center")
-				p(class="error-message")= error_message
+				p(id="error-message" class="error-message")= error_message
 
 		block contents

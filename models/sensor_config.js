@@ -1,27 +1,31 @@
 const mongoose = require('mongoose');
 
+const portSchema = new mongoose.Schema({
+	name: {
+		type: String, 
+		required: true
+	}, 
+	port: {
+		type: Number, 
+		required: true
+	}
+});
+
 const ConfigSchema = new mongoose.Schema({
 	hardware: {
-		input_selectors: {
-			type: Map, 
-			of: Number
-		}, 
-		output_selectors: {
-			type: Map, 
-			of: Number
-		}, 
-		interrupts: {
-			type: Map, 
-			of: {
-				port: {
-					type: Number, 
-					required: true
-				}, 
-				mode: String, 
-				seek: String, 
-				debounce: Number
-			}
-		}
+		input_selectors: [portSchema], 
+		output_selectors: [portSchema], 
+		operands: [portSchema],
+		interrupts: [{
+			port: {
+				type: portSchema,
+				required: true
+			}, 
+			mode: String, 
+			counter: Number,
+			seek: String, 
+			debounce: Number
+		}]
 	}, 
 	plans: [{
 		name: {
@@ -39,15 +43,15 @@ const ConfigSchema = new mongoose.Schema({
 				type: Number, 
 				required: true
 			},
-			actions: {
-				type: Map, 
-				of: {type: Map, of: Boolean}, 
-				required: true
-			}
+			actions: [{
+				port_name: String, 
+				state: Boolean
+			}]
 		}]
 	}]
 });
 
-const SensorConfig = mongoose.model("SensorConfig", ConfigSchema);
+// const SensorConfig = mongoose.model("SensorConfig", ConfigSchema);
 
-module.exports = SensorConfig;
+// module.exports = SensorConfig;
+module.exports = ConfigSchema;

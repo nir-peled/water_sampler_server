@@ -1,0 +1,41 @@
+extends default
+
+block scripts
+	script(type="text/javascript" src="/scripts/config.js")
+
+block contents
+	a(href="/sensors/all" class="ref-button" role="button") Cancel
+	br
+	br
+	h3= `Config Sensor "${sensor_name}"`
+	div(id="sensor-config")
+		input(type="hidden" id="sensor_name" value=sensor_name)
+		h3 Hardware:
+		br
+		br
+		h4 Input Selectors:
+		br
+		div(id="input-selectors")
+			li(id="input-selectors-list")
+			button(id="add-input-selector" type="button" class="ref-button") Add Input Selector
+		h4 Output Selectors:
+		br
+		div(id="output-selectors")
+			li(id="output-selectors-list")
+			button(id="add-output-selector" type="button" class="ref-button") Add Output Selector
+		h4 Operands:
+		br
+		div(id="operands")
+			li(id="operands-list")
+			button(id="add-operand" type="button" class="ref-button") Add Operand
+		h4 Interrupts:
+		br
+		div(id="interrupts")
+			li(id="interrupts-list")
+			button(id="add-interrupt" type="button" class="ref-button") Add Interrupt
+		h4 Plans:
+		br
+		div(id="plans")
+			li(id="plans-list")
+			button(id="add-plan" type="button" class="ref-button") Add Plan
+	button(id="save-config" type="button" class="ref-button") Save Configuration

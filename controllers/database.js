@@ -61,8 +61,22 @@ class Database {
 		return sensors;
 	}
 
-	async get_sensor(sensor_name) {
-		return await Sensor.findOne({sensor_name}).catch(err => null);
+	async get_sensor(sensor_name, filter={}) {
+		return await Sensor.findOne({name:sensor_name}, filter)
+		.exec().catch(err => null);
+	}
+
+	async set_sensor_config(sensor_name, config) {
+		console.log(`saving config for sensor ${sensor_name}`); // debug
+		console.log(JSON.stringify(config)); // debug
+		
+		let sensor = await this.get_sensor(sensor_name);
+		if (!sensor)
+			throw Error(`sensor \"${sensor_name}\" not found`);
+			
+		sensor.config = config;
+		await sensor.save();
+		return sensor;
 	}
 }
 

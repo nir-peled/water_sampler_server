@@ -1,0 +1,107 @@
+extends default
+
+mixin port_input(port_id, port_data)
+	label(for=`${port_id}_name`) Name:
+	input(type="text" id=`${port_id}_name` name=`${port_id}_name`
+		value=port_data.name)
+	label(for=`${port_id}_port`) Port:
+	input(type="number" id=`${port_id}_port` name=`${port_id}_port`
+		value=port_data.port)
+	button(id=`${port_id}_remove` type="button"
+	 class="ref-button port-remove-button") Remove
+
+mixin interrupt_input(int_id, int_data)
+	br
+	+port_input(int_id, int_data.port)
+	br
+	label(for=`${int_id}_seek`) Seek Mode:
+	select(name=`${int_id}_seek` value=int_data.seek)
+		option(value="rising") rising
+		option(value="falling") falling
+		option(value="both") both
+	br
+	label(for=`${int_id}_mode`) Mode:
+	select(name=`${int_id}_mdoe` value=int_data.mode)
+		option(value="single") single
+		option(value="counter") counter
+	br
+	label(for=`${int_id}_counter`) Counter To: 
+	input(type="number" id=`${int_id}_counter` name=`${int_id}_counter`
+		value=int_data.counter)
+	br
+	label(for=`${int_id}_counter`) Debounce: 
+	input(type="number" id=`${int_id}_debounce` name=`${int_id}_debounce`
+		value=int_data.debounce)
+	br
+
+mixin plan_input(plan_id, plan_data)
+	label(for=`${plan_id}_name`) Name:
+	input(type="text" id=`${plan_id}_name` name=`${plan_id}_name`
+		value=plan_data.name)
+	br
+	label(for=`${plan_id}_comments`) Comments:
+	textarea(id=`${plan_id}_comments` name=`${plan_id}_comments`)= plan_data.comments
+	br
+	h4 Steps:
+	- for (i in plan_data.steps)
+		+step_input(`${plan_id}_step${i}`m plan_data.steps[i])
+		br
+	input(type="hidden" name=`${plan_id}_step_count` value=plan_data.steps.length)
+	button(id=`${plan_id}_add_step` type="button" class="ref-button") Add Step
+
+
+//- block scripts
+//- 	script(type="text/javascript" src="/scripts/config.js")
+
+block contents
+	a(href="/sensors/all" class="ref-button" role="button") Cancel
+	br
+	br
+	- var hardware = sensor_config.hardware
+	form(action=`/sensors/${sensor_name}/config` method="post")
+		h3 Hardware:
+		br
+		br
+		h4 Input Selectors:
+		br
+		- for (i in hardware.input_selectors)
+			+port_input("input_selector" + i, hardware.input_selectors[i])
+			br
+		input(type="hidden" name="input_selectors_count" value=hardware.input_selectors.length)
+		button(id="add-input-selector" type="button" class="ref-button") Add Input Selector
+		br
+		br
+		h4 Output Selectors:
+		br
+		- for (i in hardware.output_selectors)
+			+port_input("output_selector" + i, hardware.output_selectors[i])
+			br
+		input(type="hidden" name="output_selectors_count" value=hardware.output_selectors.length)
+		button(id="add-output-selector" type="button" class="ref-button") Add Output Selector
+		br
+		br
+		h4 Operands:
+		br
+		- for (i in hardware.operands)
+			+port_input("operand" + i, hardware.operands[i])
+			br
+		input(type="hidden" name="operands_count" value=hardware.operands.length)
+		button(id="add-operand" type="button" class="ref-button") Add Operand
+		br
+		br
+		h4 Interrupts
+		br
+		- for (i in hardware.interrupts)
+			+interrupt_input("interrupt" + i, hardware.interrupts[i])
+			br
+		input(type="hidden" name="interrupts_count" value=hardware.interrupts.length)
+		button(id="add-interrupt" type="button" class="ref-button") Add Interrupt
+		br
+		br
+		h3 Plans
+		- for (i in sensor_config.plans)
+			br
+			+plan_input(`plan${i}`, sensor_config.plans[i])
+			br
+		input(type="hidden" name="plans_count" value=sensor_config.plans.length)
+		button(id="add-plan" type="button" class="ref-button" role="button") Add Plan
