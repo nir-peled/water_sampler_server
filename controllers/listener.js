@@ -275,9 +275,8 @@ class Listener {
 			}
 			).catch((err) => {
 				console.log(err); // debug
-				response.status(SERVER_ERR).json({
-					error_message: `Unable to view sensor config of ${sensor_name}`
-				});
+				response.status(SERVER_ERR)
+				.send(`Unable to view sensor config of ${sensor_name}`);
 			}); // catch
 		}); // get sensor config
 
@@ -299,10 +298,7 @@ class Listener {
 			})
 			.catch((err) => {
 				console.log(err); // debug
-				response.status(SERVER_ERR);
-				this.#redirect(response, `/sensors/${sensor_name}`, {
-					error_message: `Unable to configure Sensor ${sensor_name}`
-				});
+				response.status(SERVER_ERR).send(`Unable to configure Sensor ${sensor_name}: ${err.message}`);
 			});
 		}); // post sensor config
 
@@ -317,7 +313,7 @@ class Listener {
 			}).catch((err) => {
 				console.log(err); // debug
 				response.status(SERVER_ERR);
-				this.#redirect(response, `/sensors/${sensor_name}`, {
+				this.#redirect(response, "/sensors/all", {
 					error_message: `Could not manually start sensor '${sensor_name}'`
 				});
 			});
@@ -340,7 +336,7 @@ class Listener {
 	}
 
 	#send_unautorized(response, user, return_page) {
-		response.status(406);
+		response.status(UNAUTHORIZED);
 		if (!return_page)
 			return_page = "/";
 		this.#redirect(response, return_page, {

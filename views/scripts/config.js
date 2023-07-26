@@ -31,9 +31,9 @@ $(document).ready(() => {
 			console.log(errorThrown); // debug
 			alert("Configuration Failed");
 			$(".error-message").text(errorThrown);
-		});
-	});
-});
+		}); // ajax fail
+	}); // save-config click
+}); // document ready
 
 function create_config_page(sensor_name) {
 	$.getJSON(`/sensors/${sensor_name}/config.json`, (data) => {
@@ -209,7 +209,8 @@ function create_step_input(steps, step_data) {
 		let interrupt_checkbox = $(this).parent().children(".step-interrupt-checkbox");
 		if (interrupt_checkbox.is(":checked"))
 			step_data.interrupt = $(this).val();
-	}).appendTo(item);
+	})
+	.appendTo(item);
 	$("<br>").appendTo(item);
 
 	// list of step actions
