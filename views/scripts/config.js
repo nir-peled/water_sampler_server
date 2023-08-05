@@ -30,7 +30,7 @@ $(document).ready(() => {
 		}).fail((jqXHR, textStatus, errorThrown) => {
 			console.log(errorThrown); // debug
 			alert("Configuration Failed");
-			$(".error-message").text(errorThrown);
+			$(".error-message").html(errorThrown);
 		}); // ajax fail
 	}); // save-config click
 }); // document ready
@@ -66,7 +66,7 @@ function create_config_page(sensor_name) {
 		);
 	}).fail((jqxhr, textStatus, error ) => {
 		console.log(error); // debug
-		$("#error-message").text(error);
+		$("#error-message").html(error);
 	});
 }
 
@@ -89,7 +89,7 @@ function add_new_interrupt() {
 }
 
 function create_port_input(collection, port_data) {
-	let item =  $("<li>", {class:"port-input"});
+	let item =  $("<li>", {class:"port-input list-group-item"});
 
 	// Create the label and text input for "Name"
 	$("<label>").text("Name: ").appendTo(item);
@@ -166,7 +166,7 @@ function create_interrupt_input(interrupt_data) {
 }
 
 function create_step_input(steps, step_data) {
-	let item =  $("<li>", {class:"step-input"});
+	let item =  $("<li>", {class:"step-input list-group-item"});
 
 	$("<button>", {class: "ref-button item-add-button"}).text("Add Step")
 	.click(function () {
@@ -247,7 +247,7 @@ function create_step_input(steps, step_data) {
 }
 
 function create_step_action_input(actions, action_data) {
-	var action_item = $("<li>");
+	var action_item = $("<li>", {class: "list-group list-group-flush"});
 
 	$("<label>").text("Port: ").appendTo(action_item);
 	$("<input>", {type: "text", value: action_data.port_name})
@@ -275,7 +275,7 @@ function create_step_action_input(actions, action_data) {
 }
 
 function create_plan_input(plan_data) {
-	var item = $("<li>");
+	var item = $("<li>", {class: "list-group-item"});
 	$("<button>", {class: "ref-button item-remove-button"})
 	.text("Remove Plan").appendTo(item);
 	$("<br>").appendTo(item);
