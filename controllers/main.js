@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-const Listener = require('./listener');
-const Database = require('./database');
-const Authenticator = require('./authenticator');
-const SensorManager = require('./sensor_manager');
-const config = require('../configs/server.config');
+const Listener = require("./listener");
+const Database = require("./database");
+const Authenticator = require("./authenticator");
+const SensorManager = require("./sensor_manager");
+const config = require("../configs/server.config");
 
 class Server {
 	#listener;
@@ -13,16 +13,17 @@ class Server {
 	#sensor_manager;
 	constructor(config) {
 		this.#database = new Database(config.database_url);
-		this.#sensor_manager = new SensorManager(this);
+		this.#sensor_manager = new SensorManager(this, config.sensor_manager);
 		this.#listener = new Listener(this, config.uri, config.port);
 		this.#authenticator = null;
 	}
 
 	async start() {
-		await this.#database.connect()
+		await this.#database.connect();
 		if (!this.#authenticator)
 			this.#authenticator = new Authenticator(this.#database);
 		this.#listener.start();
+		this.#sensor_manager.start();
 	}
 
 	database() {

@@ -1,5 +1,9 @@
 {
-	"uri": "127.0.0.1", 
-	"port": 8081, 
-	"database_url": "mongodb://127.0.0.1:27017/water_sensors_server" 
+	"uri": "127.0.0.1",
+	"port": 8081,
+	"database": {
+		"url": "mongodb://127.0.0.1:27017/water_sensors_server",
+		"image_folder": "C:\\Users\\User\\Desktop\\univercity\\telhai\\program_development\\project\\project\\server\\images"
+	},
+	"sensor_manager": { "uri": "127.0.0.1", "port": "6060" }
 }

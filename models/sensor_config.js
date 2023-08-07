@@ -12,6 +12,14 @@ const portSchema = new mongoose.Schema({
 });
 
 const ConfigSchema = new mongoose.Schema({
+	server: {
+		type: String, 
+		required: true
+	},
+	check_interval: {
+		type: Number, 
+		required: true
+	},
 	hardware: {
 		input_selectors: [portSchema], 
 		output_selectors: [portSchema], 
