@@ -1,0 +1,37 @@
+mixin view_test(test)
+	div(class="test-view")
+		table(class="test_details_table")
+			tr
+				th
+					p Test Date
+				th
+					p Classification
+			tr
+				td
+					p= test.date
+				td
+					p= Math.round(test.classification * 100) / 100
+			tr
+				th
+					p Timer
+				th
+					p Result
+			each timer in test.timers
+				tr
+					td
+						p= timer.name
+					td
+						p= timer.time
+		br
+		- let images_space = `${test._id}Images`;
+		button(class="btn ref-button" type="button" data-bs-toggle="collapse"
+		 aria-expanded="false" data-bs-target="#"+images_space aria-controls=images_space)
+		br
+		h4 Images
+		div(class="collapse" id=images_space)
+			each image in test.images
+				div(class="card card-body d-flex")
+					image(src=image.path class="img-fluid")
+					br
+					p= "Classification: " + (Math.round(image.classification * 100) / 100)
+				br

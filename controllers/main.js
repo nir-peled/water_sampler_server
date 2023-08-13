@@ -12,9 +12,14 @@ class Server {
 	#authenticator;
 	#sensor_manager;
 	constructor(config) {
-		this.#database = new Database(config.database_url);
+		this.#database = new Database(config.database);
 		this.#sensor_manager = new SensorManager(this, config.sensor_manager);
-		this.#listener = new Listener(this, config.uri, config.port);
+		this.#listener = new Listener(
+			this,
+			config.uri,
+			config.port,
+			config.database.image_folder
+		);
 		this.#authenticator = null;
 	}
 

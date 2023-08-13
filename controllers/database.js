@@ -104,7 +104,8 @@ class Database {
 		let test = await Test.create({
 			sensor: sensor._id,
 			pictures: new_paths,
-			timers: test_data,
+			timers: test_data.timers,
+			date: test_data.date,
 		});
 		await test.save();
 	}
