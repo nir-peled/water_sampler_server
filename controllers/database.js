@@ -110,6 +110,15 @@ class Database {
 		});
 		await test.save();
 	}
+
+	async get_sensor_tests(sensor_name) {
+		let sensor = await this.get_sensor(sensor_name);
+		if (!sensor) throw Error(`sensor \"${sensor_name}\" not found`);
+
+		return await Test.find({ sensor: sensor._id })
+			.exec()
+			.catch((err) => []);
+	}
 }
 
 module.exports = Database;

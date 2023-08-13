@@ -333,10 +333,10 @@ class Listener {
 
 		app.get("/sensors/:sensor_name/tests", (request, response) => {
 			let sensor_name = request.params.sensor_name;
-			this.database()
+			this.#database
 				.get_sensor_tests(sensor_name)
 				.then((tests) => {
-					let test_arr = tesst.map((test) => ({
+					let test_arr = tests.map((test) => ({
 						...test,
 						images: test.images.map((image) => ({
 							...image,

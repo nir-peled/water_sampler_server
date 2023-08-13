@@ -2,8 +2,12 @@ extends default
 include view_test
 
 block contents
+	a(href="/sensors/all" class="ref-button") Return To Sensors
+	br
+	br
 	- if (tests.length == 0)
-		p There Are No Tests
-	div(class="d-flex align-items-left flex-column")
-		each test in tests
-			+view_test(test)
+		h4 There Are No Tests
+	- else
+		div(class="d-flex align-items-left flex-column")
+			each test in tests
+				+view_test(test)
