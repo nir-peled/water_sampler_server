@@ -8,6 +8,7 @@ const TestSchema = new mongoose.Schema({
 		ref: "Sensor",
 		required: true,
 	},
+	date: Date,
 	pictures: [
 		{
 			path: String,
