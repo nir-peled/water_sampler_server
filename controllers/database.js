@@ -12,6 +12,7 @@ const { User, Sensor, Test, Picture } = require("../models/models");
 class Database {
 	#models;
 	#url;
+	#images;
 	constructor(config) {
 		this.#url = config.url;
 		this.#images = config.image_folder;

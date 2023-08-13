@@ -20,6 +20,7 @@ class Listener {
 	#app;
 	#database;
 	#sensor_manager;
+	#image_folder;
 	constructor(server, uri, port, image_folder) {
 		this.#server = server;
 		this.#database = server.database();
